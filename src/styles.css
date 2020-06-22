@@ -1,0 +1,15 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.Container {
+  visibility: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Active {
+  visibility: visible;
+  ackground-color: blue;
+}
