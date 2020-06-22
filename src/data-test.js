@@ -5,50 +5,38 @@ const data = {
         data: {
           source: "Node1",
           target: "Node2",
-          betweenness: "9.999999999999996",
-          betweennessWeighted: "0.9166666666666667",
+          betweenness: "1341.0",
+          betweennessWeighted: "0.9849009498878546",
           id: "02a3aa5f-7b30-4a10-942f-eb2abc94ce30",
           typeLink: "mention",
-          __typename: "Link"
+          __typename: "Link",
         },
-        __typename: "DataLink"
+        __typename: "DataLink",
       },
       {
         data: {
           source: "Node1",
           target: "Node3",
           betweenness: "22.0",
-          betweennessWeighted: "0.8166666666666667",
+          betweennessWeighted: "0.3166666666666667",
           id: "02a3aa5f-7b30-4a10-942f-eb2abc94ce31",
           typeLink: "mention",
-          __typename: "Link"
+          __typename: "Link",
         },
-        __typename: "DataLink"
-      },
-      {
-        data: {
-          source: "Node2",
-          target: "Node3",
-          betweenness: "43.999999999999986",
-          betweennessWeighted: "0.6333333333333335",
-          id: "02a3aa5f-7b30-4a10-942f-eb2abc94ce32",
-          typeLink: "mention",
-          __typename: "Link"
-        },
-        __typename: "DataLink"
+        __typename: "DataLink",
       },
       {
         data: {
           source: "Node3",
           target: "Node4",
-          betweenness: "8.500000000000002",
-          betweennessWeighted: "0.9291666666666667",
+          betweenness: "1341.0",
+          betweennessWeighted: "0.9849009498878546",
           id: "02a3aa5f-7b30-4a10-942f-eb2abc94ce33",
           typeLink: "mention",
-          __typename: "Link"
+          __typename: "Link",
         },
-        __typename: "DataLink"
-      }
+        __typename: "DataLink",
+      },
     ],
     dataNodes: [
       {
@@ -59,9 +47,9 @@ const data = {
           degree: 0.36363636363636365,
           url: [],
           text: [],
-          __typename: "Node"
+          __typename: "Node",
         },
-        __typename: "DataNode"
+        __typename: "DataNode",
       },
       {
         data: {
@@ -71,11 +59,11 @@ const data = {
           degree: 0.36363636363636365,
           url: ["https://twitter.com/Pirhanovic/status/1271740191607263232"],
           text: [
-            "@Melsscck @ahmetata231 @drfahrettinkoca @tcmeb @TC_icisleri @NASA @elonmusk @realDonaldTrump Şu hayatımı çalma artık yeter aq"
+            "@Melsscck @ahmetata231 @drfahrettinkoca @tcmeb @TC_icisleri @NASA @elonmusk @realDonaldTrump Şu hayatımı çalma artık yeter aq",
           ],
-          __typename: "Node"
+          __typename: "Node",
         },
-        __typename: "DataNode"
+        __typename: "DataNode",
       },
       {
         data: {
@@ -86,16 +74,16 @@ const data = {
           url: [
             "https://twitter.com/Nuria2407/status/1271740557744898049",
             "https://twitter.com/Nuria2407/status/1271740405009338368",
-            "https://twitter.com/Nuria2407/status/1271740393122607105"
+            "https://twitter.com/Nuria2407/status/1271740393122607105",
           ],
           text: [
             "RT @AstroBehnken: Huge thank you to @NASA, @SpaceX, and America for making this possible! https://t.co/xp8XCpU2HD",
             "RT @NASA: LIVE NOW: New Horizons, in addition to being the first spacecraft to encounter Pluto, recently took images of the stars Proxima C…",
-            "RT @NASA: This week on #SpacetoGround :\n\n⚡ @Space_Station research offers new insight to the role severe thunderstorms play in Earth's atmo…"
+            "RT @NASA: This week on #SpacetoGround :\n\n⚡ @Space_Station research offers new insight to the role severe thunderstorms play in Earth's atmo…",
           ],
-          __typename: "Node"
+          __typename: "Node",
         },
-        __typename: "DataNode"
+        __typename: "DataNode",
       },
       {
         data: {
@@ -104,20 +92,20 @@ const data = {
           screenName: "Node4",
           degree: 0.13636363636363635,
           url: [
-            "https://twitter.com/TheRealDanielA4/status/1271740583174975489"
+            "https://twitter.com/TheRealDanielA4/status/1271740583174975489",
           ],
           text: [
-            "RT @JimBridenstine: The cost-saving success of @Commercial_Crew is based on @NASA establishing high-level requirements and letting private…"
+            "RT @JimBridenstine: The cost-saving success of @Commercial_Crew is based on @NASA establishing high-level requirements and letting private…",
           ],
-          __typename: "Node"
+          __typename: "Node",
         },
-        __typename: "DataNode"
-      }
+        __typename: "DataNode",
+      },
     ],
     numberNodes: 4,
     sinceRange: "Sat Jun 13 09:44:24 +0000 2020",
-    untilRange: "Sat Jun 13 09:45:57 +0000 2020"
-  }
+    untilRange: "Sat Jun 13 09:45:57 +0000 2020",
+  },
 };
 
 export default data;

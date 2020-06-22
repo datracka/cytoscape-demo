@@ -1,7 +1,9 @@
 import React from "react";
 import Cytoscape from "cytoscape";
 import cola from "cytoscape-cola";
+import makeStyles from "./make-styles";
 
+const MAX_DISTANCE = 150;
 // inspiration
 // https://codesandbox.io/s/cytoscapejs-react-hooks-b0ntj?file=/src/components/Graph.tsx
 
@@ -15,20 +17,30 @@ let layout;
 const useCytoscapeGraph = ({ ref, nodes, links }) => {
   const [cyNodes, setCyNodes] = React.useState(null);
   const [layoutReady, setLayoutReady] = React.useState(false);
+
+  /*   cy.on("tap", (e) => {
+    console.log(e);
+  }); */
+
   React.useEffect(() => {
     // console.log("hi", nodes, links, ref);
     cy = new Cytoscape({
       container: ref.current,
-      animate: false,
-      zoom: 2,
       elements: {
         nodes,
         edges: links,
       },
+      style: makeStyles(),
     });
 
     layout = cy.layout({
       name: "cola",
+      animate: true,
+      infinite: true,
+      fit: true,
+      edgeLength: (e) => {
+        return MAX_DISTANCE * e.data("betweennessWeighted");
+      },
     });
 
     layout.pon("layoutstart", () => {
@@ -36,19 +48,11 @@ const useCytoscapeGraph = ({ ref, nodes, links }) => {
     });
 
     layout.pon("layoutstop", () => {
-      console.log("layoutstop promise");
       console.timeEnd("drawing");
       setLayoutReady(true);
     });
 
     layout.run();
-
-    /*  console.log(cy.nodes()[0].data());
-    cy.zoom({
-      level: 10,
-      position: cy.getElementById("node[id='NASA']").position(),
-    }); */
-    // setCyNodes(cy.nodes());
   }, [links, nodes, ref]);
 
   return {

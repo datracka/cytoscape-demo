@@ -24,8 +24,7 @@ const Graph = ({ dataNodes, dataLinks }) => {
     handleNodeSelection(node);
     setNode(node);
   };
-  console.log("layoutReady", layoutReady);
-  // className={clsx({ Graph: true, Active: layoutReady })}
+
   return (
     <>
       <div>sss</div>
@@ -37,11 +36,7 @@ const Graph = ({ dataNodes, dataLinks }) => {
           Next Influencer{" "}
         </span>
       </div>
-      <div
-        ref={ref}
-        id="graph"
-        className={clsx({ Container: true, Active: layoutReady })}
-      />
+      <div ref={ref} id="graph" className="DefaultContainer" />
     </>
   );
 };

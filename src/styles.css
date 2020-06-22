@@ -3,6 +3,11 @@
   text-align: center;
 }
 
+.DefaultContainer {
+  width: 100vw;
+  height: 100vh;
+}
+
 .Container {
   visibility: hidden;
   width: 100vw;
@@ -11,5 +16,4 @@
 
 .Active {
   visibility: visible;
-  ackground-color: blue;
 }
