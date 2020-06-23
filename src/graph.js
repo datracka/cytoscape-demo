@@ -3,7 +3,7 @@ import useCytoscapeGraph from "./use-cytoscape-graph";
 import clsx from "clsx";
 import "./styles.css";
 
-const Graph = ({ dataNodes, dataLinks }) => {
+const Graph = (data) => {
   const ref = React.useRef(null);
   const handleOnOpen = () => {};
   const [node, setNode] = React.useState();
@@ -11,8 +11,7 @@ const Graph = ({ dataNodes, dataLinks }) => {
   // eslint-disable-next-line no-unused-vars
   const { cyNodes, layoutReady, handleNodeSelection } = useCytoscapeGraph({
     ref,
-    nodes: dataNodes,
-    links: dataLinks,
+    data: data,
     handleOnOpen,
   });
   // console.log("cyNodes", cyNodes);

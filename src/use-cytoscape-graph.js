@@ -7,42 +7,20 @@ const MAX_DISTANCE = 150;
 // inspiration
 // https://codesandbox.io/s/cytoscapejs-react-hooks-b0ntj?file=/src/components/Graph.tsx
 
-Cytoscape.use(cola);
-
 // eslint-disable-next-line no-unused-vars
 let cy;
 let layout;
 
 // eslint-disable-next-line no-unused-vars
-const useCytoscapeGraph = ({ ref, nodes, links }) => {
+const useCytoscapeGraph = ({ ref, data }) => {
   const [cyNodes, setCyNodes] = React.useState(null);
   const [layoutReady, setLayoutReady] = React.useState(false);
 
-  React.useEffect(() => {
-    // console.log("hi", nodes, links, ref);
-    cy = new Cytoscape({
-      container: ref.current,
-      elements: {
-        nodes,
-        edges: links,
-      },
-      style: makeStyles(),
-    });
-
+  /* 
     cy.on("tap", (e) => {
       console.log(e);
-    });
-
-    layout = cy.layout({
-      name: "cola",
-      animate: true,
-      infinite: true,
-      fit: true,
-      edgeLength: (e) => {
-        return MAX_DISTANCE * e.data("betweennessWeighted");
-      },
-    });
-
+    }); */
+  /* 
     layout.pon("layoutstart", () => {
       console.time("drawing");
     });
@@ -50,10 +28,45 @@ const useCytoscapeGraph = ({ ref, nodes, links }) => {
     layout.pon("layoutstop", () => {
       console.timeEnd("drawing");
       setLayoutReady(true);
-    });
+    }); */
+  React.useEffect(() => {
+    if (!ref.current) return;
+    try {
+      if (!cy) {
+        Cytoscape.use(cola);
+        cy = new Cytoscape({
+          container: ref.current,
+          style: makeStyles(),
+        });
+        console.log(cy);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
-    layout.run();
-  }, [links, nodes, ref]);
+  React.useEffect(() => {
+    // console.log("hi", nodes, links, ref);
+    console.log(data, cy);
+    const { dataNodes, dataLinks } = data;
+    if (cy) {
+      if (layout) layout.stop();
+
+      cy.add({ nodes: dataNodes, edges: dataLinks });
+      layout = cy.layout({
+        name: "cola",
+        animate: true,
+        infinite: true,
+        maxZoom: 10,
+        fit: false,
+        edgeLength: (e) => {
+          return MAX_DISTANCE * e.data("betweennessWeighted");
+        },
+      });
+      console.log(layout);
+      layout.run();
+    }
+  }, [data]);
 
   return {
     cyNodes,
