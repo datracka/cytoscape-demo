@@ -6,6 +6,8 @@ const makeStyles = () => {
         "background-color": "lightorange",
         width: 10,
         height: 10,
+        opacity: 1,
+        transition: "opacity 0.5s",
         "font-size": 9,
         "font-weight": "bold",
         "min-zoomed-font-size": 4,
@@ -18,6 +20,12 @@ const makeStyles = () => {
         "text-outline-color": "#fff",
         "text-outline-opacity": 1,
         "overlay-color": "#fff",
+      },
+    },
+    {
+      selector: "node.faded",
+      style: {
+        opacity: 0.4,
       },
     },
     {
@@ -49,9 +57,17 @@ const makeStyles = () => {
       style: {
         width: 0.5,
         opacity: 0.5,
+        transition: "opacity 0.5s",
         "line-color": "lightgrey",
         "target-arrow-color": "lightgrey",
         "target-arrow-shape": "triangle",
+      },
+    },
+    {
+      selector: "edge.highlighted",
+      style: {
+        width: 1.2,
+        opacity: 1,
       },
     },
   ];

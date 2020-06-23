@@ -3,7 +3,7 @@ import Cytoscape from "cytoscape";
 import cola from "cytoscape-cola";
 import makeStyles from "./make-styles";
 
-const MAX_DISTANCE = 150;
+const MAX_DISTANCE = 15;
 // inspiration
 // https://codesandbox.io/s/cytoscapejs-react-hooks-b0ntj?file=/src/components/Graph.tsx
 
@@ -13,22 +13,46 @@ let layout;
 
 // eslint-disable-next-line no-unused-vars
 const useCytoscapeGraph = ({ ref, data }) => {
-  const [cyNodes, setCyNodes] = React.useState(null);
-  const [layoutReady, setLayoutReady] = React.useState(false);
+  // const [cyNodes, setCyNodes] = React.useState(null);
+  const [nodeHighlighted, setNodeHighlighted] = React.useState(false);
 
-  /* 
-    cy.on("tap", (e) => {
-      console.log(e);
-    }); */
-  /* 
-    layout.pon("layoutstart", () => {
-      console.time("drawing");
+  const unhighlight = () => {
+    const allEles = cy.elements();
+    const allNodes = cy.nodes();
+
+    cy.stop();
+    allNodes.stop();
+
+    cy.batch(() => {
+      allEles.removeClass("faded").removeClass("highlighted");
     });
+  };
 
-    layout.pon("layoutstop", () => {
-      console.timeEnd("drawing");
-      setLayoutReady(true);
-    }); */
+  const highlight = (node) => {
+    if (nodeHighlighted) return;
+    setNodeHighlighted(true);
+
+    const allEles = cy.elements();
+    const nhood = node.closedNeighborhood();
+    const edges = node.connectedEdges();
+    const others = allEles.not(nhood);
+
+    console.log("edges", edges);
+
+    const showOthersFaded = () => {
+      cy.batch(() => {
+        others.addClass("faded");
+        edges.addClass("highlighted");
+      });
+    };
+
+    return Promise.resolve()
+      .then(showOthersFaded)
+      .then(() => {
+        setNodeHighlighted(false);
+      });
+  };
+
   React.useEffect(() => {
     if (!ref.current) return;
     try {
@@ -38,16 +62,14 @@ const useCytoscapeGraph = ({ ref, data }) => {
           container: ref.current,
           style: makeStyles(),
         });
-        console.log(cy);
       }
     } catch (error) {
       console.error(error);
     }
+    return () => cy && cy.destroy();
   }, []);
 
   React.useEffect(() => {
-    // console.log("hi", nodes, links, ref);
-    console.log(data, cy);
     const { dataNodes, dataLinks } = data;
     if (cy) {
       if (layout) layout.stop();
@@ -57,7 +79,7 @@ const useCytoscapeGraph = ({ ref, data }) => {
         name: "cola",
         animate: true,
         infinite: true,
-        maxZoom: 10,
+        maxZoom: 1,
         fit: false,
         edgeLength: (e) => {
           return MAX_DISTANCE * e.data("betweennessWeighted");
@@ -68,9 +90,20 @@ const useCytoscapeGraph = ({ ref, data }) => {
     }
   }, [data]);
 
+  // https://js.cytoscape.org/#events
+  React.useEffect(() => {
+    cy.on("tapstart", (e) => {
+      if (e.target !== cy) highlight(e.target);
+    });
+    cy.on("tapdragout", (e) => {
+      if (e.target !== cy) unhighlight();
+    });
+    cy.on("tap", () => {
+      console.log("tap");
+    });
+  }, [cy]);
+
   return {
-    cyNodes,
-    layoutReady,
     handleToggle: () => {},
     handleNodeSelection: (node) => {},
   };
