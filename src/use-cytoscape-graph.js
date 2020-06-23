@@ -18,10 +18,6 @@ const useCytoscapeGraph = ({ ref, nodes, links }) => {
   const [cyNodes, setCyNodes] = React.useState(null);
   const [layoutReady, setLayoutReady] = React.useState(false);
 
-  /*   cy.on("tap", (e) => {
-    console.log(e);
-  }); */
-
   React.useEffect(() => {
     // console.log("hi", nodes, links, ref);
     cy = new Cytoscape({
@@ -31,6 +27,10 @@ const useCytoscapeGraph = ({ ref, nodes, links }) => {
         edges: links,
       },
       style: makeStyles(),
+    });
+
+    cy.on("tap", (e) => {
+      console.log(e);
     });
 
     layout = cy.layout({
